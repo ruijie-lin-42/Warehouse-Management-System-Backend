@@ -96,6 +96,8 @@ this system by HTTP REST API. You can find the repository on [GitHub](https://gi
         ```
     - If you have installed maven on your machine, you can replace the `./mvnw.cmd` or `./mvnw` to `mvn` to run the project.
     - Or if you are using IDEs like IntelliJ IDEA, you can also click the run button.
+5. After you successfully run the application, you can now start using this application. There will be a default SUPER_ADMIN role account created in the database on your first run, whose username is `admin` and password is `12345678`. **Remember to change that password!!!**   
+6. If you have your own way to send requests (postman, your own frontend application, etc.), feel free to use those; this project also has a corresponding frontend, which you can access by accessing the repository at https://github.com/ruijie-lin-42/Warehouse-Management-System-Frontend. See the README.md for more details.
 
 ## Instructions of Use
 
@@ -118,11 +120,11 @@ this system by HTTP REST API. You can find the repository on [GitHub](https://gi
 ### Authorization
 
 - The application consists of 3 different user roles, SUPER_ADMIN, ADMIN, and USER.
-- Make sure you have inserted at least one SUPER_ADMIN role user to the database before you start using the application, otherwise you won't be able to create any users. See samples in `db/sq/test_seed.sql`.
+- Make sure you have inserted at least one SUPER_ADMIN role. This would be done on application run by Spring Boot reading data in `resources/db/sql/data.sql`, remember that the default password is `12345678` which is weak, please change it before you start using it. Also remember to change the admin's personal info.
 - Different roles has different authorities, following by the rules:
   - SUPER_ADMIN can manage ADMIN, and ADMIN can manage USER. Here manage means create, alter, and delete operations, different user roles can still read each other's public info.
   - Only SUPER_ADMIN or ADMIN could manage storages (or warehouses). Here manage means create, alter and delete operations.
-  - Users with role USER or above could manipulate the stocks in an storage. Manipulating the stocks would be recorded and stored as stock history.
+  - Users with role USER or above could manipulate the stocks in a storage. Manipulating the stocks would be recorded and stored as stock history.
   - Any authenticated user could manipulate their own information.
 
 ### API Documentation
@@ -172,10 +174,6 @@ Other main configuration options are located in `src/main/resources/application.
 
 ```
 Storage-Management-System-Backend/
-├── db
-│ └── sql/
-│ │ ├── schema.sql
-│ │ └── test_seed.sql
 ├── src/ 
 │ ├── main/ 
 │ │ ├── java/ 
@@ -198,7 +196,11 @@ Storage-Management-System-Backend/
 │ │ │ │ │ └── user/           # user module, same structure as above
 │ │ │ └── StorageManagementSystemBackendApplication.java
 │ │ └── resources/ 
-│ │ │ ├── mapper/           # MyBatis XML SQL mapper files
+│ │ │ ├── db/sql/
+│ │ │ │ │ ├── schema.sql    # MySQL database DDL (Data Definition Language)
+│ │ │ │ │ ├── data-test.sql # test business data
+│ │ │ │ │ └── data.sql      # must-have data, including default super admin account
+│ │ │ ├── mapper/         # MyBatis XML SQL mapper files
 │ │ │ └── application.yaml 
 │ └── test/               # testing files
 ├── .gitignore 
@@ -228,6 +230,12 @@ Storage-Management-System-Backend/
 
 ## FAQ
 
+### Q: It's my first run, how do I create the first account?
+
+A: There will be a default SUPER_ADMIN user created by Spring Boot reading `resources/db/sql/data.sql`. The username is `admin` (which cannot be changed) and the password is `12345678` (**remember to change the password!!!**).  
+You may also want to change the default generated personal information as well. You can do that through your profile page or through dashboard.  
+There are also test business data stored in `resources/db/sql/data-test.sql`; in case you want to use your own data, these data WON'T be inserted into the database by default. If you want to get to know the app quickly, feel free to use those data; if you want to use your own data, please insert them directly into the database directly.
+
 ### Q: I can't connect to MySQL when running the project.
 
 A: Please check the following:
@@ -238,7 +246,7 @@ A: Please check the following:
 
 ### Q: Why does my request keep getting 401 authentication errors?
 
-A: Please make sure you have successfully logged in and carries valid access token (which is given by the server when tou log in) in your request headers:  
+A: Please make sure you have successfully logged in and carries valid access token (which is given by the server when tou log in) in your request headers:
 `Authorization: Bearer <your_access_token>`  
 If your access token is expired, you can get a new access token by accessing the POST /auth/refresh API to get a new access token.
 

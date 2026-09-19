@@ -13,6 +13,11 @@ spring:
       connection-timeout: 5000
       idle-timeout: 0
       max-lifetime: 18000000
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/sql/schema.sql
+      data-locations: classpath:db/sql/data.sql
   jackson:
     time-zone: UTC
 server:

@@ -27,7 +27,7 @@ create table if not exists user
 );
 
 -- refresh token
-create table refresh_token
+create table if not exists refresh_token
 (
     id         bigint auto_increment comment 'id'
         primary key,
