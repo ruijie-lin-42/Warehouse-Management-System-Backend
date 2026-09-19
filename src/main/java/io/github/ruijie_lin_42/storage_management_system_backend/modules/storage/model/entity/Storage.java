@@ -2,9 +2,7 @@ package io.github.ruijie_lin_42.storage_management_system_backend.modules.storag
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -21,6 +19,9 @@ import java.time.Instant;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Storage implements Serializable {
 
     @Serial

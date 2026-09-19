@@ -1,11 +1,17 @@
 package io.github.ruijie_lin_42.storage_management_system_backend.modules.storage.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Schema(description = "Response for storage queries")
 public class StorageResponse {
 

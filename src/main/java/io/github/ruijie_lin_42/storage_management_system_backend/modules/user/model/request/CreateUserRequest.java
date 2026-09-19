@@ -4,9 +4,15 @@ import io.github.ruijie_lin_42.storage_management_system_backend.common.enums.Ro
 import io.github.ruijie_lin_42.storage_management_system_backend.modules.user.constants.UserConstraints;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Schema(description = "Create user request")
 public class CreateUserRequest {
 

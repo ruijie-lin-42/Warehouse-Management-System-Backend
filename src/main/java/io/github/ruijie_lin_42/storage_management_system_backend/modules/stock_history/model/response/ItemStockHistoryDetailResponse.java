@@ -2,11 +2,17 @@ package io.github.ruijie_lin_42.storage_management_system_backend.modules.stock_
 
 import io.github.ruijie_lin_42.storage_management_system_backend.common.enums.StockAdjustmentType;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Schema(description = "Response for querying for all stock histories for an exact item")
 public class ItemStockHistoryDetailResponse {
 

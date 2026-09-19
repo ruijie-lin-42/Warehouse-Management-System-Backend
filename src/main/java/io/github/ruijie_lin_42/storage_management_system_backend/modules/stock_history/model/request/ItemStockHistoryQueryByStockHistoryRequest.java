@@ -4,9 +4,15 @@ import io.github.ruijie_lin_42.storage_management_system_backend.modules.stock_h
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Schema(description = "Fuzzy search for items in a storage's stock history")
 public class ItemStockHistoryQueryByStockHistoryRequest {
 
