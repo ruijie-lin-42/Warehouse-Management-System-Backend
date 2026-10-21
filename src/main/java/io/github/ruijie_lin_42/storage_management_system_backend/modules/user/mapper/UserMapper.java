@@ -3,6 +3,7 @@ package io.github.ruijie_lin_42.storage_management_system_backend.modules.user.m
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.ruijie_lin_42.storage_management_system_backend.modules.user.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -14,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
+    boolean existsByUsername(@Param("username") String username);
 
 }

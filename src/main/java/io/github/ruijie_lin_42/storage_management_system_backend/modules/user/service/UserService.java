@@ -145,7 +145,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public boolean ifUsernameExists(String username) {
-        return !lambdaQuery().eq(User::getUsername, username).list().isEmpty();
+        return userMapper.existsByUsername(username);
     }
 
     public PageResultResponse<UserQueryResponse> queryUserInPage(UserQueryRequest userQueryRequest) {
