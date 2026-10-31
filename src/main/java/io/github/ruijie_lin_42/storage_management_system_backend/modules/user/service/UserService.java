@@ -8,6 +8,7 @@ import io.github.ruijie_lin_42.storage_management_system_backend.common.enums.Ro
 import io.github.ruijie_lin_42.storage_management_system_backend.common.exceptions.AuthorizationException;
 import io.github.ruijie_lin_42.storage_management_system_backend.common.exceptions.BusinessException;
 import io.github.ruijie_lin_42.storage_management_system_backend.common.exceptions.DataIntegrityException;
+import io.github.ruijie_lin_42.storage_management_system_backend.common.exceptions.UserIdNotFoundException;
 import io.github.ruijie_lin_42.storage_management_system_backend.common.utils.SecurityUtils;
 import io.github.ruijie_lin_42.storage_management_system_backend.modules.user.model.dto.UserAuthDTO;
 import io.github.ruijie_lin_42.storage_management_system_backend.common.converter.PageConverter;
@@ -158,8 +159,10 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public UserQueryResponse findUserByCurrentUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long userId = (Long) authentication.getPrincipal();
+        Long userId = SecurityUtils.getUserIdFromContext();
+        if(userId ==  null){
+            throw new UserIdNotFoundException(ResultCode.USER_UNAVAILABLE.getMessage());
+        }
         User user = userMapper.selectById(userId);
         return userConverter.toQueryResponse(user);
     }
@@ -202,7 +205,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return userConverter.toAutoDTO(user);
     }
 
-    public boolean canOperate(Role operator, Role target) {
+    private boolean canOperate(Role operator, Role target) {
         return operator != null && operator.hasHigherRoleThan(target);
     }
 }
